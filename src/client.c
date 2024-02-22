@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:55:53 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/02/22 14:59:49 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:12:58 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	send_message(pid_t pid, char *str)
 		i++;
 	}
 	if (str[i] == '\0')
-		sendo_byte(pid, '\0');
+		send_byte(pid, '\0');
 }
 
 int	main(int argc, char **argv)
