@@ -6,7 +6,13 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:55:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/02/20 16:55:56 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:37:59 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minitalk.h"
+
+int main (void)
+{
+	ft_printf("PID: %d\n", getpid());
+}
