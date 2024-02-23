@@ -6,17 +6,19 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:55:55 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/02/23 13:53:17 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:56:16 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	handler(int sig)
+void	handler(int sig, siginfo_t *info, void *context)
 {
 	static char	c;
 	static int	bits;
 
+	(void)context;
+	(void)info;
 	c = c | (sig == SIGUSR1);
 	bits++;
 	if (bits == 8)
@@ -31,12 +33,17 @@ void	handler(int sig)
 		c = c << 1;
 }
 
-int main(void)
+int	main(void)
 {
-	// struct
+	struct sigaction	s_sign;
+
+	sigemptyset(&s_sign.sa_mask);
+	s_sign.sa_handler = NULL;
+	s_sign.sa_flags = SA_RESTART | SA_SIGINFO;
+	s_sign.sa_sigaction = handler;
+	sigaction(SIGUSR1, &s_sign, NULL);
+	sigaction(SIGUSR2, &s_sign, NULL);
 	ft_printf("PID: %d\n", getpid());
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
 	while (1)
 		pause();
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:56:14 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/02/22 13:35:23 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:42:21 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <signal.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
 
