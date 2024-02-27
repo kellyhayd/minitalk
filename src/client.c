@@ -13,6 +13,14 @@
 #include "minitalk.h"
 #include <signal.h>
 
+int	confirm_flag = 0;
+
+void	handler_back(int sig)
+{
+	(void)sig;
+	confirm_flag = 1;
+}
+
 void	send_byte(pid_t pid, unsigned char c)
 {
 	int	i;
@@ -30,7 +38,10 @@ void	send_byte(pid_t pid, unsigned char c)
 			ft_putstr_fd("Error\n", 2);
 			exit(EXIT_FAILURE);
 		}
-		usleep(100);
+		while (!confirm_flag)
+			;
+		confirm_flag = 0;
+		usleep(42);
 		i--;
 	}
 }
@@ -65,6 +76,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	signal(SIGUSR1, handler_back);
 	send_message(pid, argv[2]);
 	return (0);
 }

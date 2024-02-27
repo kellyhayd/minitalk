@@ -14,12 +14,11 @@
 
 void	handler(int sig, siginfo_t *info, void *context)
 {
-	static char	c;
-	static int	bits;
+	static unsigned char	c;
+	static int				bits;
 
 	(void)context;
-	(void)info;
-	c = c | (sig == SIGUSR1);
+	c = c | (sig == SIGUSR2);
 	bits++;
 	if (bits == 8)
 	{
@@ -31,6 +30,7 @@ void	handler(int sig, siginfo_t *info, void *context)
 	}
 	else
 		c = c << 1;
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
@@ -39,8 +39,8 @@ int	main(void)
 
 	sigemptyset(&s_sign.sa_mask);
 	s_sign.sa_handler = NULL;
-	s_sign.sa_flags = SA_RESTART | SA_SIGINFO;
-	s_sign.sa_sigaction = handler;
+	s_sign.sa_flags = SA_SIGINFO;
+	s_sign.sa_sigaction = &handler;
 	sigaction(SIGUSR1, &s_sign, NULL);
 	sigaction(SIGUSR2, &s_sign, NULL);
 	ft_printf("PID: %d\n", getpid());
