@@ -41,7 +41,7 @@ void	send_byte(pid_t pid, unsigned char c)
 		while (!confirm_flag)
 			;
 		confirm_flag = 0;
-		usleep(42);
+		// usleep(42);
 		i--;
 	}
 }
