@@ -6,19 +6,21 @@
 /*   By: krocha-h <krocha-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:55:53 by krocha-h          #+#    #+#             */
-/*   Updated: 2024/02/23 14:45:10 by krocha-h         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:51:56 by krocha-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 #include <signal.h>
 
-int	confirm_flag = 0;
+int	g_confirm_flag = 0;
 
-void	handler_back(int sig)
+void	handler_back(int sig, siginfo_t *info, void *context)
 {
 	(void)sig;
-	confirm_flag = 1;
+	(void)context;
+	(void)info;
+	g_confirm_flag = 1;
 }
 
 void	send_byte(pid_t pid, unsigned char c)
@@ -38,10 +40,9 @@ void	send_byte(pid_t pid, unsigned char c)
 			ft_putstr_fd("Error\n", 2);
 			exit(EXIT_FAILURE);
 		}
-		while (!confirm_flag)
+		while (!g_confirm_flag)
 			;
-		confirm_flag = 0;
-		// usleep(42);
+		g_confirm_flag = 0;
 		i--;
 	}
 }
@@ -62,7 +63,8 @@ void	send_message(pid_t pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	pid_t	pid;
+	pid_t				pid;
+	struct sigaction	s_sign;
 
 	if (argc != 3)
 	{
@@ -76,7 +78,12 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	signal(SIGUSR1, handler_back);
+	sigemptyset(&s_sign.sa_mask);
+	s_sign.sa_handler = NULL;
+	s_sign.sa_sigaction = &handler_back;
+	s_sign.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &s_sign, NULL);
+	sigaction(SIGUSR2, &s_sign, NULL);
 	send_message(pid, argv[2]);
 	return (0);
 }
