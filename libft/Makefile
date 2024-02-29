@@ -104,13 +104,13 @@ endef
 define comp_objs
 	$(eval COUNT=$(shell expr $(COUNT) + 1))
 	$(COMP_OBJ)
-	printf "LIBFT$(YELLOW) %d%%\r$(FCOLOR)" $$(echo $$(($(COUNT) * 100 / $(words $(SRCS)))))
+	printf "Compiling Libft$(YELLOW) %d%%\r$(FCOLOR)" $$(echo $$(($(COUNT) * 100 / $(words $(SRCS)))))
 endef
 
 define comp_lib
 	$(COMP_LIB)
 	printf "\n"
-	printf "$(GREEN)LIBFT ->$(RESET)$(PURPLE) READY\n$(RESET)"
+	printf "$(CYAN)LIBFT-> $(RESET)$(PURPLE)Ok!\n$(RESET)"
 endef
 
 # ------------------------------------------------------ TARGETS

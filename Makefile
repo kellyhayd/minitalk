@@ -65,20 +65,20 @@ define comp_objs
 endef
 
 define comp_libft
-	printf "$(YELLOW)Building libft files\n$(RESET)"
+	printf "$(RED)Building libft files\n$(RESET)"
 	$(MAKE) -C $(LIBFT_DIR)
 endef
 
 define comp_exe_client
 	$(COMP_EXE_CLIENT)
-	printf "\n"
-	printf "$(GREEN)PROGRAM ->$(RESET)$(PURPLE) READY\n$(RESET)"
+	# printf "\n"
+	printf "$(CYAN)CLIENT-> $(RESET)$(PURPLE)Ok!\n$(RESET)"
 endef
 
 define comp_exe_server
 	$(COMP_EXE_SERVER)
-	printf "\n"
-	printf "$(GREEN)PROGRAM ->$(RESET)$(PURPLE) READY\n$(RESET)"
+	# printf "\n"
+	printf "$(CYAN)SERVER-> $(RESET)$(PURPLE)Ok!\n$(RESET)"
 endef
 
 # ------------------------------------------------------ TARGETS
@@ -103,7 +103,7 @@ clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME_CLIENT) $(NAME_SERVER)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
